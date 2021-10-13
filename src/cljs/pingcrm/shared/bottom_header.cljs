@@ -12,17 +12,17 @@
     (fn []
       [:div
        {:class
-        "bg-white border-b w-full p-4 md:py-0 md:px-12 text-sm md:text-md flex justify-between items-center"}
-       [:div {:class "mt-1 mr-4"} (.. user -account -name)]
+        "bg-white border-l h-full p-4 md:px-0 md:py-6 text-sm md:text-md flex justify-between items-center mode-lr"}
+       [:div {:class "ml-1 mb-4"} (.. user -account -name)]
        [:div {:class "relative"}
         [:div
          {:class "flex items-center cursor-pointer select-none group",
           :on-click #(swap! opened? not)}
          [:div
           {:class
-           "mr-1 text-gray-800 whitespace-nowrap group-hover:text-indigo-600 focus:text-indigo-600"}
+           "mb-1 text-gray-800 whitespace-nowrap group-hover:text-indigo-600 focus:text-indigo-600"}
           [:span (.-first_name user)]
-          [:span {:class "hidden ml-1 md:inline"} (.-last_name user)]]
+          [:span {:class "hidden mt-1 md:inline"} (.-last_name user)]]
          [icon
           {:class
            "w-5 h-5 text-gray-800 fill-current group-hover:text-indigo-600 focus:text-indigo-600",
@@ -30,20 +30,20 @@
         [:div {:class (when-not @opened? "hidden")}
          [:div
           {:class
-           "absolute top-0 right-0 left-auto z-20 py-2 mt-8 text-sm whitespace-nowrap bg-white rounded shadow-xl"}
+           "absolute left-0 bottom-0 left-auto z-20 px-2 ml-8 text-sm whitespace-nowrap bg-white rounded shadow-xl"}
           [:> InertiaLink
            {:href (js/route "users.edit" (.. user -id)),
-            :class "block px-6 py-2 hover:bg-indigo-600 hover:text-white",
+            :class "block py-6 px-2 hover:bg-indigo-600 hover:text-white",
             :on-click #(swap! opened? not)} "My Profile"]
           [:> InertiaLink
            {:href (js/route "users"),
-            :class "block px-6 py-2 hover:bg-indigo-600 hover:text-white",
+            :class "block py-6 px-2 hover:bg-indigo-600 hover:text-white",
             :on-click #(swap! opened? not)} "Manage Users"]
           [:> InertiaLink
-           {:as "button",
+           {;:as "button",
             :href (js/route "logout"),
             :class
-            "block w-full px-6 py-2 text-left focus:outline-none hover:bg-indigo-600 hover:text-white",
+            "block h-full py-6 px-2 text-left focus:outline-none hover:bg-indigo-600 hover:text-white mode-lr",
             :method "delete"} "Logout"]]
          [:div
           {:class "fixed inset-0 z-10 bg-black opacity-25",

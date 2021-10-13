@@ -18,5 +18,5 @@
      [:label.form-label {:html-for name} label ":"])
    [:input (merge props {:id name
                          :name name
-                         :class (str "form-input" (when (seq errors) " error"))})]
+                         :class (str "form-input origin-left origin-top transform rotate-90" (when (seq errors) " error"))})]
    (when errors [:div.form-error errors])])

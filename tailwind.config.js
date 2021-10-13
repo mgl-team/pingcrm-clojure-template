@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
     purge: ['./public/js/app.*.js',
@@ -45,5 +46,22 @@ module.exports = {
       fill: ['focus', 'group-hover'],
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      const newUtilities = {
+        '.mode-lr': {
+          'writing-mode': 'vertical-lr'
+        },
+        '.mode-tb': {
+          'writing-mode': 'horizontal-tb'
+        },
+        '.mgl': {
+          'font-family': 'Mongolian White',
+          'text-orientation': 'sideways-right'
+        },
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    })
+  ],
 }

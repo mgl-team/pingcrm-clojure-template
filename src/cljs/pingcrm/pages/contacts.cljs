@@ -13,21 +13,21 @@
   (let [{:keys [data links]} (j/lookup contacts)]
     [:div
      [:> Head {:title "Contacts"}]
-     [:h1 {:class "mb-8 text-3xl font-bold"} "Contacts"]
-     [:div {:class "flex items-center justify-between mb-6"}
-      [:f> search-filter]
+     [:h1 {:class "mr-8 text-3xl font-bold"} "Contacts"]
+     [:div {:class "flex items-center justify-between mr-6 mode-lr"}
+      ; [:f> search-filter]
       [:> InertiaLink
        {:class "btn-indigo focus:outline-none",
         :href (js/route "contacts.create")} [:span "Create "]
        [:span {:class "hidden md:inline"} "Contact"]]]
-     [:div {:class "overflow-x-auto bg-white rounded shadow"}
-      [:table {:class "w-full whitespace-nowrap"}
+     [:div {:class "overflow-y-auto bg-white rounded shadow"}
+      [:table {:class "h-full whitespace-nowrap"}
        [:thead
         [:tr {:class "font-bold text-left"}
-         [:th {:class "px-6 pt-5 pb-4"} "Name"]
-         [:th {:class "px-6 pt-5 pb-4"} "Organization"]
-         [:th {:class "px-6 pt-5 pb-4"} "City"]
-         [:th {:class "px-6 pt-5 pb-4", :col-span "2"} "Phone"]]]
+         [:th {:class "py-6 pl-5 pr-4"} "Name"]
+         [:th {:class "py-6 pl-5 pr-4"} "Organization"]
+         [:th {:class "py-6 pl-5 pr-4"} "City"]
+         [:th {:class "py-6 pl-5 pr-4", :col-span "2"} "Phone"]]]
        [:tbody
         (for [contact data
               :let [{:keys [id name city phone organization deleted_at]} (j/lookup contact)]]
@@ -35,35 +35,35 @@
                 :key id}
            [:td {:class "border-t"}
             [:> InertiaLink {:href (js/route "contacts.edit" id)
-                             :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
              name
              (when deleted_at
                [icon {:name :trash
-                      :class "flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"}])]]
+                      :class "flex-shrink-0 h-3 w-3 mt-2 text-gray-400 fill-current"}])]]
            [:td {:class "border-t"}
             [:> InertiaLink {:href (js/route "contacts.edit" id)
                              :tab-index "-1"
-                             :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
              (when organization (j/get organization :name))]]
            [:td {:class "border-t"}
             [:> InertiaLink {:href (js/route "contacts.edit" id)
                              :tab-index "-1"
-                             :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
              city]]
            [:td {:class "border-t"}
             [:> InertiaLink {:href (js/route "contacts.edit" id)
                              :tab-index "-1"
-                             :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
              phone]]
            [:td {:class "w-px border-t"}
             [:> InertiaLink {:href (js/route "contacts.edit" id)
                              :tab-index "-1"
-                             :class "flex items-center px-4 focus:outline-none"}
+                             :class "flex items-center py-4 focus:outline-none"}
              [icon {:name :cheveron-right
                     :class "block w-6 h-6 text-gray-400 fill-current"}]]]])
         (when (zero? (count data))
           [:tr
-           [:td {:class "px-6 py-4 border-t"
+           [:td {:class "py-6 px-4 border-t"
                  :col-span "4"}
             "No contacts found."]])]]]
      [pagination links]]))
@@ -187,32 +187,32 @@
                    (.put Inertia (js/route "contacts.restore" (.-id contact))))]
     [:div
      [:> Head {:title (str (j/get contact :first_name) " " (j/get contact :last_name))}]
-     [:h1 {:class "mb-8 text-3xl font-bold"}
+     [:h1 {:class "ml-8 text-3xl font-bold"}
       [:> InertiaLink {:href (js/route "contacts")
                        :class "text-indigo-600 hover:text-indigo-700"}
        "Contacts"]
-      [:span {:class "mx-2 font-medium text-indigo-600"}
+      [:span {:class "my-2 font-medium text-indigo-600"}
        "/"]
       (.-first_name data) " " (.-last_name data)]
      (when-not (empty? (j/get contact :deleted_at))
        [trashed-message {:on-restore restore}
         "This contact has been deleted."])
-     [:div {:class "max-w-3xl overflow-hidden bg-white rounded shadow"}
+     [:div {:class "max-h-3xl overflow-hidden bg-white rounded shadow"}
       [:form {:on-submit on-submit}
-       [:div {:class "flex flex-wrap p-8 -mb-8 -mr-6"}
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+       [:div {:class "flex flex-row flex-wrap p-8 -ml-8 -mb-6"}
+        [text-input {:class "w-full h-full pl-8 pb-6 lg:h-1/2"
                      :label "First name"
                      :name "first_name"
                      :errors (.-first_name errors)
                      :value (.-first_name data)
                      :on-change #(setData "first_name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Last name"
                      :name "last_name"
                      :errors (.-last_name errors)
                      :value (.-last_name data)
                      :on-change #(setData "last_name" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                        :label "Organization"
                        :name "organization_id"
                        :errors (.-organization_id errors)
@@ -222,37 +222,37 @@
          (for [organization organizations
                :let [{:keys [id name]} (j/lookup organization)]]
            [:option {:key id :value id} name])]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Email"
                      :name "email"
                      :errors (.-email errors)
                      :value (.-email data)
                      :on-change #(setData "email" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Phone"
                      :name "phone"
                      :errors (.-phone errors)
                      :value (.-phone data)
                      :on-change #(setData "phone" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Address"
                      :name "address"
                      :errors (.-address errors)
                      :value (.-address data)
                      :on-change #(setData "address" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "City"
                      :name "city"
                      :errors (.-city errors)
                      :value (.-city data)
                      :on-change #(setData "city" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Province/State"
                      :name "region"
                      :errors (.-region errors)
                      :value (.-region data)
                      :on-change #(setData "region" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                        :label "Country"
                        :name "country"
                        :type "text"
@@ -262,13 +262,13 @@
          [:option {:value ""}]
          [:option {:value "CA"} "Canada"]
          [:option {:value "US"} "United States"]]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Postal Code"
                      :name "postal_code"
                      :errors (.-postal_code errors)
                      :value (.-postal_code data)
                      :on-change #(setData "postal_code" (.. % -target -value))}]]
-       [:div {:class "flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200"}
+       [:div {:class "flex items-center py-8 px-4 bg-gray-100 border-r border-gray-200"}
         (when (empty? (j/get contact :deleted_at))
           [delete-button {:on-delete destroy}
            "Delete Contact"])
