@@ -84,83 +84,83 @@
                        (post (js/route "contacts.store")))]
     [:div
      [:> Head {:title "Create Contact"}]
-     [:h1 {:class "mb-8 text-3xl font-bold"}
+     [:h1 {:class "ml-8 text-3xl font-bold"}
       [:> InertiaLink {:href (js/route "contacts")
                        :class "text-indigo-400 hover:text-indigo-600"}
        "Contacts"]
       [:span {:class ""} " / "]
       "Create"]
-     [:div {:class "max-w-3xl overflow-hidden bg-white rounded shadow"}
+     [:div {:class "max-h-3xl overflow-hidden bg-white rounded shadow"}
       [:form {:on-submit on-submit}
-       [:div {:class "flex flex-wrap p-8 -mb-8 -mr-6"}
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+       [:div {:class "flex flex-wrap p-8 -ml-8 -mb-6"}
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "First name"
                      :name "first_name"
                      :errors (.-first_name errors)
                      :value (.-first_name data)
                      :on-change #(setData "first_name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Last name"
                      :name "last_name"
                      :errors (.-last_name errors)
                      :value (.-last_name data)
                      :on-change #(setData "last_name" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                        :label "Organization"
                        :name "organization_id"
                        :errors (.-organization_id errors)
                        :value (.-organization_id data)
-                       :on-change #(setData "organization_id" (.. % -target -value))}
-         [:option {:value ""}]
-         (for [organization organizations
-               :let [{:keys [id name]} (j/lookup organization)]]
-           [:option {:value id
-                     :key id} name])]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                     :label "Email"
-                     :name "email"
-                     :errors (.-email errors)
-                     :value (.-email data)
-                     :on-change #(setData "email" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                     :label "Phone"
-                     :name "phone"
-                     :errors (.-phone errors)
-                     :value (.-phone data)
-                     :on-change #(setData "phone" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                     :label "Address"
-                     :name "address"
-                     :errors (.-address errors)
-                     :value (.-address data)
-                     :on-change #(setData "address" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                     :label "City"
-                     :name "city"
-                     :errors (.-city errors)
-                     :value (.-city data)
-                     :on-change #(setData "city" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                     :label "Province/State"
-                     :name "region"
-                     :errors (.-region errors)
-                     :value (.-region data)
-                     :on-change #(setData "region" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                       :label "Country"
-                       :name "country"
-                       :errors (.-country errors)
-                       :value (.-country data)
-                       :on-change #(setData "country" (.. % -target -value))}
-         [:option {:value ""}]
-         [:option {:value "CA"} "Canada"]
-         [:option {:value "US"} "United States"]]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                     :label "Postal code"
-                     :name "postal_code"
-                     :errors (.-postal_code errors)
-                     :value (.-postal_code data)
-                     :on-change #(setData "postal_code" (.. % -target -value))}]]
+                       :on-change #(setData "organization_id" (.. % -target -value))}]]
+         ; [:option {:value ""}]
+         ; (for [organization organizations
+         ;       :let [{:keys [id name]} (j/lookup organization)]]
+         ;   [:option {:value id
+         ;             :key id} name])]]
+        ; [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;              :label "Email"
+        ;              :name "email"
+        ;              :errors (.-email errors)
+        ;              :value (.-email data)
+        ;              :on-change #(setData "email" (.. % -target -value))}]
+        ; [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;              :label "Phone"
+        ;              :name "phone"
+        ;              :errors (.-phone errors)
+        ;              :value (.-phone data)
+        ;              :on-change #(setData "phone" (.. % -target -value))}]
+        ; [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;              :label "Address"
+        ;              :name "address"
+        ;              :errors (.-address errors)
+        ;              :value (.-address data)
+        ;              :on-change #(setData "address" (.. % -target -value))}]
+        ; [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;              :label "City"
+        ;              :name "city"
+        ;              :errors (.-city errors)
+        ;              :value (.-city data)
+        ;              :on-change #(setData "city" (.. % -target -value))}]
+        ; [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;              :label "Province/State"
+        ;              :name "region"
+        ;              :errors (.-region errors)
+        ;              :value (.-region data)
+        ;              :on-change #(setData "region" (.. % -target -value))}]
+        ; [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;                :label "Country"
+        ;                :name "country"
+        ;                :errors (.-country errors)
+        ;                :value (.-country data)
+        ;                :on-change #(setData "country" (.. % -target -value))}
+        ;  [:option {:value ""}]
+        ;  [:option {:value "CA"} "Canada"]
+        ;  [:option {:value "US"} "United States"]]
+        ; [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        ;              :label "Postal code"
+        ;              :name "postal_code"
+        ;              :errors (.-postal_code errors)
+        ;              :value (.-postal_code data)
+        ;              :on-change #(setData "postal_code" (.. % -target -value))}]]
        [:div {:class "px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center"}
         [loading-button {:loading processing
                          :type "submit"
