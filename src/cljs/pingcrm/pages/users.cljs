@@ -109,8 +109,8 @@
                        :errors (.-owner errors)
                        :value (.-owner data)
                        :on-change #(setData "country" (.. % -target -value))}
-         [:option {:value "1"} "Yes"]
-         [:option {:value "0"} "No"]]]
+          [(clj->js [{:id "1" :name "Yes"}
+                     {:id "0" :name "No"}])]]]
        [:div {:class "px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center"}
         [loading-button {:loading processing
                          :type "submit"
@@ -175,8 +175,8 @@
                        :errors (.-owner errors)
                        :value (.-owner data)
                        :on-change #(setData "owner" (.. % -target -value))}
-         [:option {:value "1"} "Yes"]
-         [:option {:value "0"} "No"]]]
+         [(clj->js [{:id "1" :name "Yes"}
+                    {:id "0" :name "No"}])]]]
        ;; TODO Add file input
        [:div {:class "flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200"}
         (when (empty? (j/get user :deleted_at))

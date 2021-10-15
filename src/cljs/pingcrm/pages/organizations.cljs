@@ -16,7 +16,7 @@
      [:> Head {:title "Organizations"}]
      [:h1 {:class "mb-8 text-3xl font-bold"} "Organizations"]
      [:div {:class "flex items-center justify-between mb-6"}
-      [:f> search-filter]
+      ; [:f> search-filter]
       [:> InertiaLink
        {:class "btn-indigo focus:outline-none",
         :href (js/route "organizations.create")} [:span "Create "]
@@ -128,9 +128,9 @@
                        :errors (.-country errors)
                        :value (.-country data)
                        :on-change #(setData "country" (.. % -target -value))}
-         [:option {:value ""}]
-         [:option {:value "CA"} "Canada"]
-         [:option {:value "US"} "United States"]]
+          [(clj->js [{:id "" :name ""}
+                     {:id "1" :name "Canada"}
+                     {:id "2" :name "United States"}])]]
         [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
                      :label "Postal code"
                      :name "postal_code"
@@ -216,9 +216,9 @@
                        :errors (.-country errors)
                        :value (.-country data)
                        :on-change #(setData "country" (.. % -target -value))}
-         [:option {:value ""}]
-         [:option {:value "CA"} "Canada"]
-         [:option {:value "US"} "United States"]]
+          [(clj->js [{:id "" :name ""}
+                     {:id "1" :name "Canada"}
+                     {:id "2" :name "United States"}])]]
         [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
                      :label "Postal Code"
                      :name "postal_code"

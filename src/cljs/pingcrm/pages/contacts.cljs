@@ -213,10 +213,7 @@
                        :errors (.-organization_id errors)
                        :value (.-organization_id data)
                        :on-change #(setData "organization_id" (.. % -target -value))}
-         [:option {:value ""}]
-         (for [organization organizations
-               :let [{:keys [id name]} (j/lookup organization)]]
-           [:option {:key id :value id} name])]
+         [organizations]]
         [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Email"
                      :name "email"
@@ -254,9 +251,9 @@
                        :errors (.-country errors)
                        :value (.-country data)
                        :on-change #(setData "country" (.. % -target -value))}
-         [:option {:value ""}]
-         [:option {:value "CA"} "Canada"]
-         [:option {:value "US"} "United States"]]
+          [(clj->js [ {:id "" :name ""}
+                      {:id "1" :name "Canada"}
+                      {:id "2" :name "United States"}])]]
         [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Postal Code"
                      :name "postal_code"

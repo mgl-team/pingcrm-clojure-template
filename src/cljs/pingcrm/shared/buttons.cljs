@@ -14,6 +14,6 @@
    [:button {:class "text-red-600 focus:outline-none hover:underline"
              :tab-index "-1"
              :type "button"
-             :on-click on-delete}]
-   [:p {:class "mode-lr"}
-    children]))
+             :on-click on-delete}
+    [:p {:class "mode-lr"}
+     children]]))
