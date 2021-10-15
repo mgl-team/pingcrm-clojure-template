@@ -40,39 +40,40 @@
                   :on-click #(reset! opened? false)}]
            [:div {:class "relative z-30 h-64 py-4 px-6 mr-2 bg-white rounded shadow-lg"}
             (when (.hasOwnProperty filters "role")
-              [select-input
-               {:class "ml-4"
-                :label "Role"
-                :name "role"
-                :value (:role @values)
-                :on-change on-change}
-               [:option {:value ""}]
-               [:option {:value "user"} "User"]
-               [:option {:value "owner"} "Owner"]])
+              [select-input {:class "ml-4"
+                             :label "Role"
+                             :name "role"
+                             :value (:role @values)
+                             :on-change on-change}
+                [(clj->js [{:id "" :name ""}
+                           {:id "user" :name "User"}
+                           {:id "owner" :name "Owner"}])]])
             [select-input
              {:class "ml-4"
               :label "Trashed"
               :name "trashed"
               :value (:trashed @values)
               :on-change on-change}
-             [:option {:value ""}]
-             [:option {:value "with"} "With Trashed"]
-             [:option {:value "only"} "Only Trashed"]]]]
-          [:button {:class "py-4 border-l rounded-t md:py-6 hover:bg-gray-100 focus:outline-none focus:border-white focus:ring-2 focus:ring-indigo-400 focus:z-10 origin-left transform rotate-90"
+             [(clj->js [{:id "" :name ""}
+                        {:id "with" :name "With Trashed"}
+                        {:id "only" :name "Only Trashed"}])]]]]
+          [:button {:class "py-4 border-l rounded-t md:py-6 hover:bg-gray-100 focus:outline-none focus:border-white focus:ring-2 focus:ring-indigo-400 focus:z-10"
                     :on-click #(reset! opened? true)}
-           [:div {:class "flex items-baseline"}
+           [:div {:class "flex items-baseline mode-lr"}
             [:span {:class "hidden text-gray-700 md:inline"} "Filter"]
             [:svg {:class "w-2 h-2 text-gray-700 fill-current md:mt-2"
                    :xmlns "http://www.w3.org/2000/svg"
                    :view-box "0 0 961.243 599.998"}
              [:path {:d "M239.998 239.999L0 0h961.243L721.246 240c-131.999 132-240.28 240-240.624 239.999-.345-.001-108.625-108.001-240.624-240z"}]]]]
-          [:input {:class "relative h-full py-6 px-3 rounded-r focus:outline-none focus:ring-2 focus:ring-indigo-400 transform rotate-90"
-                   :auto-complete "off"
-                   :type "text"
-                   :name "search"
-                   :value (:search @values)
-                   :on-change on-change
-                   :placeholder "Search..."}]]
+          [:div {:class "relative h-full py-6 px-3 rounded-r focus:outline-none focus:ring-2 focus:ring-indigo-400 form-input single-line"
+                 :auto-complete "off"
+                 :type "text"
+                 :name "search"
+                 :value (:search @values)
+                 :on-change on-change
+                 :placeholder "Search..."
+                 :content-editable "true"}]]
+
          [:button {:class "mt-3 text-sm text-gray-600 hover:text-gray-700 focus:text-indigo-700 focus:outline-none transform rotate-90"
                    :type "button"
                    :on-click reset}
