@@ -11,51 +11,51 @@
 (defn index [{:keys [users]}]
   [:div
    [:> Head {:title "Users"}]
-   [:h1 {:class "mb-8 text-3xl font-bold"} "Users"]
-   [:div {:class "flex items-center justify-between mb-6"}
+   [:h1 {:class "ml-8 text-3xl font-bold"} "Users"]
+   [:div {:class "flex items-center justify-between ml-6"}
     [:f> search-filter]
     [:> InertiaLink {:class "btn-indigo focus:outline-none"
                      :href (js/route "users.create")}
      [:span "Create"]
      [:span {:class "hidden md:inline"} " User"]]]
-   [:div {:class "overflow-x-auto bg-white rounded shadow"}
-    [:table {:class "w-full whitespace-nowrap"}
+   [:div {:class "overflow-y-auto bg-white rounded shadow"}
+    [:table {:class "h-full whitespace-nowrap"}
      [:thead
       [:tr {:class "font-bold text-left"}
-       [:th {:class "px-6 pt-5 pb-4"} "Name"]
-       [:th {:class "px-6 pt-5 pb-4"} "Email"]
-       [:th {:class "px-6 pt-5 pb-4" :col-span "2"} "Role"]]]
+       [:th {:class "py-6 pr-5 pl-4"} "Name"]
+       [:th {:class "py-6 pr-5 pl-4"} "Email"]
+       [:th {:class "py-6 pr-5 pl-4" :col-span "2"} "Role"]]]
      [:tbody
       (for [user users
             :let [{:keys [id name email owner deleted_at]} (j/lookup user)]]
         [:tr {:class "hover:bg-gray-100 focus-within:bg-gray-100"
               :key id}
-         [:td {:class "border-t"}
+         [:td {:class "border-r"}
           [:> InertiaLink {:href (js/route "users.edit" id)
-                           :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                           :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
            name
            (when deleted_at
              [icon {:name :trash
-                    :class "flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"}])]]
-         [:td {:class "border-t"}
+                    :class "flex-shrink-0 w-3 h-3 mt-2 text-gray-400 fill-current"}])]]
+         [:td {:class "border-r"}
           [:> InertiaLink {:href (js/route "users.edit" id)
                            :tab-index "-1"
-                           :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                           :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
            email]]
-         [:td {:class "border-t"}
+         [:td {:class "border-r"}
           [:> InertiaLink {:href (js/route "users.edit" id)
                            :tab-index "-1"
-                           :class "flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"}
+                           :class "flex items-center py-6 px-4 focus:text-indigo-700 focus:outline-none"}
            (if owner "Owner" "User")]]
-         [:td {:class "w-px border-t"}
+         [:td {:class "h-px border-r"}
           [:> InertiaLink {:href (js/route "users.edit" id)
                            :tab-index "-1"
-                           :class "flex items-center px-4 focus:outline-none"}
+                           :class "flex items-center py-4 focus:outline-none"}
            [icon {:name :cheveron-right
                   :class "block w-6 h-6 text-gray-400 fill-current"}]]]])
       (when (zero? (count users))
         [:tr
-         [:td {:class "px-6 py-4 border-t"
+         [:td {:class "py-6 px-4 border-r"
                :col-span "4"}
           "No Users found."]])]]]])
 
@@ -70,48 +70,48 @@
                        (post (js/route "users.store")))]
     [:div
      [:> Head {:title "Create User"}]
-     [:h1 {:class "mb-8 text-3xl font-bold"}
+     [:h1 {:class "ml-8 text-3xl font-bold"}
       [:> InertiaLink {:href (js/route "users")
                        :class "text-indigo-400 hover:text-indigo-600"}
        "Users" [:span {:class "font-medium text-indigo-400"} " / "]]
       "Create"]
-     [:div {:class "max-w-3xl overflow-hidden bg-white rounded shadow"}
+     [:div {:class "max-h-3xl overflow-hidden bg-white rounded shadow"}
       [:form {:on-submit on-submit}
-       [:div {:class "flex flex-wrap p-8 -mb-8 -mr-6"}
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+       [:div {:class "flex flex-wrap p-8 -ml-8 -mb-6"}
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "First name"
                      :name "first_name"
                      :errors (.-first_name errors)
                      :value (.-first_name data)
                      :on-change #(setData "first_name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Last name"
                      :name "last_name"
                      :errors (.-last_name errors)
                      :value (.-last_name data)
                      :on-change #(setData "last_name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Email"
                      :name "email"
                      :errors (.-email errors)
                      :value (.-email data)
                      :on-change #(setData "email" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Password"
                      :name "password"
                      :type "password"
                      :errors (.-password errors)
                      :value (.-password data)
                      :on-change #(setData "password" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
-                       :label "Owner"
-                       :name "owner"
-                       :errors (.-owner errors)
-                       :value (.-owner data)
-                       :on-change #(setData "country" (.. % -target -value))}
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
+                         :label "Owner"
+                         :name "owner"
+                         :errors (.-owner errors)
+                         :value (.-owner data)
+                         :on-change #(setData "country" (.. % -target -value))}
           [(clj->js [{:id "1" :name "Yes"}
                      {:id "0" :name "No"}])]]]
-       [:div {:class "px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center"}
+       [:div {:class "ml-4 py-8 px-4 bg-gray-50 border-r border-gray-100 flex justify-end items-center"}
         [loading-button {:loading processing
                          :type "submit"
                          :class "btn-indigo"}
@@ -132,44 +132,44 @@
                    (.put Inertia (js/route "users.restore" (.-id user))))]
     [:<>
      [:> Head {:title (str (j/get user :first_name) " " (j/get user :last_name))}]
-     [:div {:class "flex justify-start max-w-lg mb-8"}
+     [:div {:class "flex justify-start max-h-lg ml-8"}
       [:h1 {:class "text-3xl font-bold"}
        [:> InertiaLink {:class "text-indigo-400 hover:text-indigo-700"
                         :href (js/route "users")} "Users"]
-       [:span {:class "mx-2 font-medium text-indigo-400"} "/"]
+       [:span {:class "my-2 font-medium text-indigo-400"} "/"]
        (.-first_name data) " " (.-last_name data)]]
      (when-not (empty? (j/get user :deleted_at))
        [trashed-message {:on-restore restore}
         "This user has been deleted."])
-     [:div {:class "max-w-3xl overflow-hidden bg-white rounded shadow"}
+     [:div {:class "max-h-3xl overflow-hidden bg-white rounded shadow"}
       [:form {:on-submit on-submit}
-       [:div {:class "flex flex-wrap p-8 -mb-8 -mr-6"}
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+       [:div {:class "flex flex-wrap p-8 -ml-8 -mb-6"}
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "First name"
                      :name "first_name"
                      :errors (.-first_name errors)
                      :value (.-first_name data)
                      :on-change #(setData "first_name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Last name"
                      :name "last_name"
                      :errors (.-last_name errors)
                      :value (.-last_name data)
                      :on-change #(setData "last_name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Email"
                      :name "email"
                      :errors (.-email errors)
                      :value (.-email data)
                      :on-change #(setData "email" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Password"
                      :name "password"
                      :type "password"
                      :errors (.-password errors)
                      :value (.-password data)
                      :on-change #(setData "password" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                        :label "Owner"
                        :name "owner"
                        :errors (.-owner errors)
@@ -178,13 +178,13 @@
          [(clj->js [{:id "1" :name "Yes"}
                     {:id "0" :name "No"}])]]]
        ;; TODO Add file input
-       [:div {:class "flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200"}
+       [:div {:class "flex items-center ml-4 py-8 px-4 bg-gray-100 border-r border-gray-200"}
         (when (empty? (j/get user :deleted_at))
           [delete-button {:on-delete destroy}
            "Delete User"])
         [loading-button {:loading processing
                          :type "submit"
-                         :class "ml-auto btn-indigo"}
+                         :class "mt-auto btn-indigo"}
          "Update User"]]]]]))
 
 (defn create []
