@@ -1,5 +1,6 @@
 (ns pingcrm.shared.form-input
-  (:require [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [applied-science.js-interop :as j]))
 
 (defn select-input
   [{:keys [label name class errors] :as props} & children]
@@ -14,22 +15,19 @@
        ;       children)
        [:div {:class "relative"}
         [:button
-         {:class "cursor-pointer select-none form-select w-11 absolute left-0 bottom-0 left-auto z-20 px-2 text-sm whitespace-nowrap bg-white rounded shadow-xl"
-          :on-click #(reset! opened? not)}]
+         {:class "cursor-pointer select-none form-select w-11 absolute left-0 bottom-0 left-auto z-20 px-2 text-sm whitespace-nowrap bg-white rounded"; shadow-xl
+          :on-click #(do (reset! opened? not)
+                         (.preventDefault %))}]
         [:div {:class (str "absolute" (when-not @opened? " hidden"))}
          [:div {:class "fixed inset-0 z-20 bg-black opacity-25"
                 :on-click #(reset! opened? false)}]
-         [:div {:class "relative z-30 ml-12 py-4 px-6 mr-2 bg-white rounded shadow-lg"}
-          [:div {:class "h-full flex flex-col"}
-           [:a
-            {
-             :class "py-6 px-2 hover:bg-indigo-600 hover:text-white",
-             :on-click #(swap! opened? not)} "My Profile"]
-           [:a
-            {
-             :class "py-6 px-2 hover:bg-indigo-600 hover:text-white",
-             :on-click #(swap! opened? not)} "Manage Users"]]]]]
-
+         [:div {:class "relative w-48 z-30 ml-12 py-4 px-6 mr-2 bg-white rounded shadow-lg"}
+          [:div {:class "h-full w-40 flex flex-col overflow-x-auto"}
+           (for [item (first (first children))
+                 :let [{:keys [id name]} (j/lookup item)]]
+             ^{:key (or id name)}
+             [:a {:class "py-6 px-2 hover:bg-indigo-600 hover:text-white",
+                  :on-click #(swap! opened? not)} name])]]]]
        (when errors
          [:div.form-error errors])])))
 

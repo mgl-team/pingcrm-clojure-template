@@ -6,7 +6,8 @@
     [:button {:class class
               :disabled loading}
      (when loading [:div.mr-2.btn-spinner])
-     children]))
+     [:p {:class "mode-lr"}
+      children]]))
 
 (defn delete-button [{:keys [on-delete]} & children]
   (into
@@ -14,4 +15,5 @@
              :tab-index "-1"
              :type "button"
              :on-click on-delete}]
-   children))
+   [:p {:class "mode-lr"}
+    children]))
