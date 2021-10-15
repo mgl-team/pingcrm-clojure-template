@@ -1,5 +1,6 @@
 (ns pingcrm.shared.form-input
   (:require [reagent.core :as r]
+            [reagent.dom :as reagent-dom]
             [applied-science.js-interop :as j]))
 
 (defn select-input
@@ -31,12 +32,21 @@
        (when errors
          [:div.form-error errors])])))
 
-(defn text-input [{:keys [label name class errors] :as props}]
-  [:div {:class class}
-   (when label
-     [:label.form-label {:html-for name} label ":"])
-   [:div (merge props {:id name
-                       :name name
-                       :content-editable "true"
-                       :class (str "form-input single-line" (when (seq errors) " error"))})]
-   (when errors [:div.form-error errors])])
+(defn text-input [{:keys [label name class errors value] :as props}]
+  (r/create-class
+   {:component-did-mount
+    (fn [component]
+      (let [el (aget (.-children (reagent-dom/dom-node component)) (if label 1 0))]
+        (j/assoc! el "innerText" value)))
+
+    :reagent-render
+    (fn []
+      [:div {:class class}
+       (when label
+         [:label.form-label {:html-for name} label ":"])
+       [:div (merge props {:id name
+                           :name name
+                           :content-editable "true"
+                           :class (str "form-input single-line" (when (seq errors) " error"))})]
+                           ; :dangerouslySetInnerHTML {:__html value}})]
+       (when errors [:div.form-error errors])])}))

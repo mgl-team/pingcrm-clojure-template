@@ -38,6 +38,7 @@
 [contenteditable="true"].single-line {
     white-space: nowrap;
     overflow: hidden;
+    writing-mode: vertical-lr;
 }
 [contenteditable="true"].single-line br {
     display:none;

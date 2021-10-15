@@ -3,14 +3,16 @@
             [applied-science.js-interop :as j]
             [pingcrm.shared.buttons :refer [loading-button]]
             [pingcrm.shared.form-input :refer [text-input]]
-            [pingcrm.shared.logo :refer [logo]]))
+            [pingcrm.shared.logo :refer [logo]]
+            [clojure.string :as str]))
 
 (defn login-form []
   (let [{:keys [data setData errors post processing]} (j/lookup
-                                                       (useForm #js {:email "SaveTheMongolian@example.com"
+                                                       (useForm #js {:email "mongolian@example.com"
                                                                      :password "secret"
                                                                      :remember false}))
         on-submit #(do (.preventDefault %)
+                       (js/console.log (str "---" (.-email data) "---" (.-password data)))
                        (post (js/route "login.store")))]
     [:<>
      [:> Head {:title "Login"}]
@@ -27,14 +29,14 @@
                       :name "email"
                       :errors (.-email errors)
                       :value (.-email data)
-                      :on-change #(setData "email" (.. % -target -value))}]
+                      :on-input #(setData "email" (.. % -target -innerText))}]
          [text-input {:class "mr-6"
                       :label "Password"
                       :name "password"
                       :type "password"
                       :errors (.-password errors)
                       :value (.-password data)
-                      :on-change #(setData "password" (.. % -target -value))}]
+                      :on-input #(setData "password" (.. % -target -innerText))}]
          [:label {:class "flex items-center mr-6 select-none" :html-for "remember"}
           [:input#remember
            {:name "remember"
