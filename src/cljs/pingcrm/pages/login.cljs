@@ -8,7 +8,7 @@
 
 (defn login-form []
   (let [{:keys [data setData errors post processing]} (j/lookup
-                                                       (useForm #js {:email "mongolian@example.com"
+                                                       (useForm #js {:email "mongol@example.com"
                                                                      :password "secret"
                                                                      :remember false}))
         on-submit #(do (.preventDefault %)
