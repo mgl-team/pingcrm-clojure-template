@@ -77,52 +77,52 @@
                        (post (js/route "organizations.store")))]
     [:div
      [:> Head {:title "Create Organization"}]
-     [:h1 {:class "mb-8 text-3xl font-bold"}
+     [:h1 {:class "ml-8 text-3xl font-bold"}
       [:> InertiaLink {:href (js/route "organizations")
                        :class "text-indigo-400 hover:text-indigo-600"}
        "Organizations"]
       [:span {:class ""} " / "]
       "Create"]
-     [:div {:class "max-w-3xl overflow-hidden bg-white rounded shadow"}
+     [:div {:class "max-h-3xl overflow-hidden bg-white rounded shadow"}
       [:form {:on-submit on-submit}
-       [:div {:class "flex flex-wrap p-8 -mb-8 -mr-6"}
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+       [:div {:class "flex flex-wrap p-8 -ml-8 -mb-6"}
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Name"
                      :name "name"
                      :errors (.-name errors)
                      :value (.-name data)
                      :on-change #(setData "name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Email"
                      :name "email"
                      :errors (.-email errors)
                      :value (.-email data)
                      :on-change #(setData "email" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Phone"
                      :name "phone"
                      :errors (.-phone errors)
                      :value (.-phone data)
                      :on-change #(setData "phone" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Address"
                      :name "address"
                      :errors (.-address errors)
                      :value (.-address data)
                      :on-change #(setData "address" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "City"
                      :name "city"
                      :errors (.-city errors)
                      :value (.-city data)
                      :on-change #(setData "city" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Province/State"
                      :name "region"
                      :errors (.-region errors)
                      :value (.-region data)
                      :on-change #(setData "region" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                        :label "Country"
                        :name "country"
                        :errors (.-country errors)
@@ -131,13 +131,13 @@
           [(clj->js [{:id "" :name ""}
                      {:id "1" :name "Canada"}
                      {:id "2" :name "United States"}])]]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Postal code"
                      :name "postal_code"
                      :errors (.-postal_code errors)
                      :value (.-postal_code data)
                      :on-change #(setData "postal_code" (.. % -target -value))}]]
-       [:div {:class "px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center"}
+       [:div {:class "py-8 px-4 bg-gray-50 border-r border-gray-100 flex justify-end items-center"}
         [loading-button {:loading processing
                          :type "submit"
                          :class "btn-indigo"}
@@ -161,55 +161,55 @@
                    (.put Inertia (js/route "organizations.restore" (.-id organization))))]
     [:div
      [:> Head {:title (j/get organization :name)}]
-     [:h1 {:class "mb-8 text-3xl font-bold"}
+     [:h1 {:class "ml-8 text-3xl font-bold"}
       [:> InertiaLink {:href (js/route "organizations")
                        :class "text-indigo-600 hover:text-indigo-700"}
        "Organizations"]
-      [:span {:class "mx-2 font-medium text-indigo-600"} "/"]
+      [:span {:class "my-2 font-medium text-indigo-600"} "/"]
       (.-name data)]
      (when-not (empty? (j/get organization :deleted_at))
        [trashed-message {:on-restore restore}
         "This organization has been deleted."])
-     [:div {:class "max-w-3xl overflow-hidden bg-white rounded shadow"}
+     [:div {:class "max-h-3xl overflow-hidden bg-white rounded shadow"}
       [:form {:on-submit on-submit}
-       [:div {:class "flex flex-wrap p-8 -mb-8 -mr-6"}
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+       [:div {:class "flex flex-wrap p-8 -ml-8 -mb-6"}
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Name"
                      :name "name"
                      :errors (.-name errors)
                      :value (.-name data)
                      :on-change #(setData "name" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Email"
                      :name "email"
                      :errors (.-email errors)
                      :value (.-email data)
                      :on-change #(setData "email" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Phone"
                      :name "phone"
                      :errors (.-phone errors)
                      :value (.-phone data)
                      :on-change #(setData "phone" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Address"
                      :name "address"
                      :errors (.-address errors)
                      :value (.-address data)
                      :on-change #(setData "address" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "City"
                      :name "city"
                      :errors (.-city errors)
                      :value (.-city data)
                      :on-change #(setData "city" (.. % -target -value))}]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Province/State"
                      :name "region"
                      :errors (.-region errors)
                      :value (.-region data)
                      :on-change #(setData "region" (.. % -target -value))}]
-        [select-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [select-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                        :label "Country"
                        :name "country"
                        :type "text"
@@ -219,28 +219,28 @@
           [(clj->js [{:id "" :name ""}
                      {:id "1" :name "Canada"}
                      {:id "2" :name "United States"}])]]
-        [text-input {:class "w-full pb-8 pr-6 lg:w-1/2"
+        [text-input {:class "h-full pl-8 pb-6 lg:h-1/2"
                      :label "Postal Code"
                      :name "postal_code"
                      :errors (.-postal_code errors)
                      :value (.-postal_code data)
                      :on-change #(setData "postal_code" (.. % -target -value))}]]
-       [:div {:class "flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200"}
+       [:div {:class "flex items-center py-8 px-4 bg-gray-100 border-r border-gray-200"}
         (when (empty? (j/get organization :deleted_at))
           [delete-button {:on-delete destroy}
            "Delete Organization"])
         [loading-button {:loading processing
                          :type "submit"
-                         :class "ml-auto btn-indigo"}
+                         :class "mt-auto btn-indigo"}
          "Update Organization"]]]]
-     [:h2 {:class "mt-12 text-2xl font-bold"} "Contacts"]
-     [:div {:class "mt-6 overflow-x-auto bg-white rounded shadow"}
-      [:table {:class "w-full whitespace-nowrap"}
+     [:h2 {:class "mr-12 text-2xl font-bold"} "Contacts"]
+     [:div {:class "mr-6 overflow-y-auto bg-white rounded shadow"}
+      [:table {:class "h-full whitespace-nowrap"}
        [:thead
         [:tr {:class "font-bold text-left"}
-         [:th {:class "px-6 pt-5 pb-4"} "Name"]
-         [:th {:class "px-6 pt-5 pb-4"} "City"]
-         [:th {:class "px-6 pt-5 pb-4" :col-span "2"} "Phone"]]]
+         [:th {:class "py-6 pr-5 pl-4"} "Name"]
+         [:th {:class "py-6 pr-5 pl-4"} "City"]
+         [:th {:class "py-6 pr-5 pl-4" :col-span "2"} "Phone"]]]
        [:tbody
         (for [item (.-contacts organization)
               :let [{:keys [id name phone city deleted_at]} (j/lookup item)]]
@@ -248,30 +248,30 @@
                 :key id}
            [:td.border-t
             [:> InertiaLink {:href (js/route "contacts.edit" id)
-                             :class "flex items-center px-6 py-4 focus:text-indigo focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo focus:outline-none"}
              name
              (when deleted_at
                [icon {:name :trash
-                      :class "flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"}])]]
+                      :class "flex-shrink-0 h-3 w-3 mt-2 text-gray-400 fill-current"}])]]
            [:td.border-t
             [:> InertiaLink {:tab-index "-1"
                              :href (js/route "contacts.edit" id)
-                             :class "flex items-center px-6 py-4 focus:text-indigo focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo focus:outline-none"}
              city]]
            [:td.border-t
             [:> InertiaLink {:tab-index "-1"
                              :href (js/route "contacts.edit" id)
-                             :class "flex items-center px-6 py-4 focus:text-indigo focus:outline-none"}
+                             :class "flex items-center py-6 px-4 focus:text-indigo focus:outline-none"}
              phone]]
            [:td.border-t.w-px
             [:> InertiaLink {:tab-index "-1"
                              :href (js/route "contacts.edit" id)
-                             :class "flex items-center px-4"}
+                             :class "flex items-center py-4"}
              [icon {:name :cheveron-right
                     :class "block w-6 h-6 text-gray-400 fill-current"}]]]])
         (when (empty? (j/get organization :contacts))
           [:tr
-           [:td {:class "px-6 py-4 border-t"
+           [:td {:class "py-6 px-4 border-r"
                  :col-span "4"}
             "No contacts found."]])]]]]))
 

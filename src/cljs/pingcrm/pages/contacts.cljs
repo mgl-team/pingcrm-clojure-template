@@ -266,7 +266,7 @@
            "Delete Contact"])
         [loading-button {:loading processing
                          :type "submit"
-                         :class "ml-auto btn-indigo"}
+                         :class "mt-auto btn-indigo"}
          "Update Contact"]]]]]))
 
 (defn edit [{:keys [contact organizations]}]
